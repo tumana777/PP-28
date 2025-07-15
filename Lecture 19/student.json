@@ -1,0 +1,15 @@
+{
+  "name": "John",
+  "age": 25,
+  "gender": "male",
+  "grades": [
+    58,
+    75,
+    65
+  ],
+  "course": {
+    "name": "Python",
+    "lecturer": "Otar"
+  },
+  "status": true
+}

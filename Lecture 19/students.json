@@ -1,0 +1,32 @@
+[
+    {
+        "name": "John",
+        "age": 25,
+        "gender": "male",
+        "grades": [
+            58,
+            75,
+            65
+        ],
+        "course": {
+            "name": "Python",
+            "lecturer": "Otar"
+        },
+        "status": true
+    },
+    {
+        "name": "Bob",
+        "age": 32,
+        "gender": "male",
+        "grades": [
+            67,
+            82,
+            90
+        ],
+        "course": {
+            "name": "Python",
+            "lecturer": "Otar"
+        },
+        "status": false
+    }
+]
