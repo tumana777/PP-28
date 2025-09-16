@@ -7,6 +7,10 @@ class Category(models.Model):
 
     class Meta:
         db_table = 'categories'
+        verbose_name_plural = 'Categories'
+
+    def __str__(self):
+        return self.title
 
 class Product(models.Model):
     title = models.CharField(max_length=50)
@@ -16,7 +20,11 @@ class Product(models.Model):
     is_available = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products')
 
     class Meta:
         db_table = 'products'
+        verbose_name_plural = 'Products'
+
+    def __str__(self):
+        return self.title
