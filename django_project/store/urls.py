@@ -1,5 +1,5 @@
 from django.urls import path
-from store.views import index, about, products_json, products, product_detail
+from store.views import index, about, products_json, products, product_detail, add_product
 
 app_name = 'store'
 
@@ -9,4 +9,5 @@ urlpatterns = [
     path('products.json/', products_json, name='products_json'),
     path('products/', products, name='products'),
     path('products/<int:product_pk>/', product_detail, name='product_detail'),
+    path('add_product/', add_product, name='add_product'),
 ]

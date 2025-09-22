@@ -1,19 +1,23 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Products</title>
-</head>
-<body>
-    <ul>
+{% extends 'base.html' %}
+
+{% block title %}Products{% endblock %}
+
+{% block content %}
+    <div class="row">
     {% for product in products %}
-        <a href="{% url 'store:product_detail' product_pk=product.pk %}"><li>Title: {{ product.title }}, Price: {{ product.price }}</li></a>
+            <div class="col-md-4 mb-3">
+                <div class="card" style="width: 18rem;">
+                  <img src="..." class="card-img-top" alt="...">
+                  <div class="card-body">
+                    <h5 class="card-title">{{ product.title }}</h5>
+                    <p class="card-text" style="height: 60px">{{ product.description }}</p>
+                    <a href="{% url 'store:product_detail' product_pk=product.pk %}" class="btn btn-primary">Click to see</a>
+                      <small>Category: {{ product.category }}</small>
+                  </div>
+                </div>
+            </div>
     {% endfor %}
-    </ul>
-    <hr>
-    <a href="{% url 'store:home' %}">Home</a>
-</body>
-</html>
+
+    </div>
+    <a class="btn btn-success mb-4" href="{% url 'store:add_product' %}">Add New Product</a>
+{% endblock %}
