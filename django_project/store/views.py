@@ -21,15 +21,13 @@ def products_json(request):
     return JsonResponse({'products': list(all_product.values())})
 
 def products(request):
-    all_product = Product.objects.all().select_related('category')
+    all_product = Product.objects.all().select_related('category').order_by('-created_at')
     return render(request, 'products.html', {'products': all_product})
 
 def add_product(request):
 
     if request.method == 'POST':
         form = ProductForm(request.POST)
-
-        print(request.POST)
 
         if form.is_valid():
             form.save()
@@ -38,6 +36,28 @@ def add_product(request):
         form = ProductForm()
 
     return render(request, 'add_product.html', {'form': form})
+
+def update_product(request, product_pk):
+    product = get_object_or_404(Product, pk=product_pk)
+
+    if request.method == 'POST':
+        form = ProductForm(request.POST, instance=product)
+
+        if form.is_valid():
+            form.save()
+            return redirect('store:product_detail', product_pk=product_pk)
+    else:
+        form = ProductForm(instance=product)
+
+    return render(request, 'update_product.html', {'form': form})
+
+def delete_product(request, product_pk):
+    product = get_object_or_404(Product, pk=product_pk)
+
+    if request.method == 'POST':
+        product.delete()
+        return redirect('store:products')
+    return redirect('store:product_detail', product_pk=product_pk)
 
 def product_detail(request, product_pk):
     product = get_object_or_404(Product, pk=product_pk)

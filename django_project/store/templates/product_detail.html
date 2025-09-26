@@ -13,5 +13,9 @@
     <br>
     Stock: {{ product.is_available }}
     <hr>
-    <a href="{% url 'store:home' %}">Home</a>
+    <a class="btn btn-success mb-2" href="{% url 'store:update_product' product_pk=product.pk %}">Update</a>
+    <form action="{% url 'store:delete_product' product_pk=product.pk %}" method="post" onsubmit="return confirm('Are you sure to delete this product?')">
+        {% csrf_token %}
+        <button class="btn btn-danger">Delete</button>
+    </form>
 {% endblock %}
