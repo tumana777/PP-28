@@ -48,12 +48,15 @@ INSTALLED_APPS = [
 
     # Local apps
     'store',
+    'user',
 
     # 3rd party apps
     'debug_toolbar',
     'crispy_forms',
     'crispy_bootstrap5',
 ]
+
+# AUTH_USER_MODEL = 'user.CustomUser'
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"

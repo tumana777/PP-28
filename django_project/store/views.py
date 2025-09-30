@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, JsonResponse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
@@ -54,11 +55,12 @@ class ProductListView(ListView):
 #
 #     return render(request, 'add_product.html', {'form': form})
 
-class ProductCreateView(CreateView):
+class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Product
     form_class = ProductForm
     template_name = 'add_product.html'
     success_url = '/products/'
+    login_url = 'user:login'
 
 # def update_product(request, product_pk):
 #     product = get_object_or_404(Product, pk=product_pk)
