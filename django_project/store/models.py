@@ -21,6 +21,8 @@ class Product(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products')
+    image = models.ImageField(upload_to='product_images', null=True, blank=True, default='default.jpg')
+    views = models.PositiveIntegerField(default=0)
 
     class Meta:
         db_table = 'products'
