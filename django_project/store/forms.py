@@ -6,4 +6,4 @@ class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
         fields = "__all__"
-        exclude = ['is_available']
+        exclude = ['is_available', 'views']

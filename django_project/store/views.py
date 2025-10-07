@@ -6,6 +6,7 @@ from django.urls import reverse_lazy
 
 from store.models import Category, Product
 from store.forms import ProductForm
+from django.db.models import Q
 
 # def index(request):
 #     return HttpResponse("<h1>Hello, world. This is home page</h1>")
@@ -34,12 +35,30 @@ class ProductListView(ListView):
     model = Product
     template_name = 'products.html'
     context_object_name = 'products'
-    queryset = Product.objects.all().select_related('category')
-    paginate_by = 3
+    # queryset = Product.objects.all().select_related('category')
+    # paginate_by = 3
+
+    def get_queryset(self):
+        products = Product.objects.all().select_related('category')
+
+        search_query = self.request.GET.get('q')
+        min_price = self.request.GET.get('min_price')
+        max_price = self.request.GET.get('max_price')
+
+        if search_query:
+            products = products.filter(Q(title__icontains=search_query) | Q(description__icontains=search_query))
+
+        if min_price:
+            products = products.filter(price__gte=min_price)
+
+        if max_price:
+            products = products.filter(price__lte=max_price)
+
+        return products
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['count'] = self.queryset.count()
+        context['count'] = self.get_queryset().count()
         context['saxeli'] = 'vaniko'
         return context
 

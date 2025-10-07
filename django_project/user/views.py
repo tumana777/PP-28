@@ -2,8 +2,10 @@ from django.contrib.auth import login
 from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import reverse_lazy
-from django.views.generic import CreateView
+from django.views.generic import CreateView, DetailView
 from user.forms import CustomUserCreationForm
+from user.models import Profile
+
 
 class UserRegisterView(CreateView):
     model = User
@@ -12,11 +14,19 @@ class UserRegisterView(CreateView):
     success_url = reverse_lazy('store:home')
 
     def form_valid(self, form):
-        user = form.save()
+        response = super().form_valid(form)
 
-        login(self.request, user)
+        login(self.request, self.object)
 
-        return super().form_valid(form)
+        return response
+
+class ProfileDetailView(DetailView):
+    model = Profile
+    template_name = 'profile.html'
+    context_object_name = 'profile'
+
+    def get_object(self, queryset=None):
+        return self.request.user.profile
 
 class UserLoginView(LoginView):
     template_name = 'login.html'

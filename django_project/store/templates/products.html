@@ -4,6 +4,15 @@
 
 {% block content %}
     <div class="row">
+    <div class="col-md-2">
+        <form action="">
+            <input class="form-control mb-3" type="number" name="min_price" placeholder="Min Price" value="{{ request.GET.min_price }}">
+            <input class="form-control mb-3" type="number" name="max_price" placeholder="Max Price" value="{{ request.GET.max_price }}">
+            <button class="btn btn-primary">Filter</button>
+        </form>
+    </div>
+    <div class="col-md-10">
+        <div class="row">
         {% for product in products %}
             <div class="col-md-4 mb-3">
                 <div class="card" style="width: 18rem;">
@@ -20,6 +29,9 @@
             </div>
         {% endfor %}
     </div>
+    </div>
+    </div>
+
     {% if is_paginated %}
         <nav aria-label="Page navigation example">
           <ul class="pagination">
